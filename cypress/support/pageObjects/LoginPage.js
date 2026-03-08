@@ -1,17 +1,29 @@
 class LoginPage {
-  usernameField() {
-    return cy.get('#username');
+
+  visitLogin() {
+    cy.visit(Cypress.env("loginUrl"))
   }
 
-  passwordField() {
-    return cy.get('#password');
+  enterEmail(email) {
+    cy.get('#user_email').type(email)
   }
 
-  login(user, pass) {
-    this.usernameField().type(user);
-    this.passwordField().type(pass);
-    cy.get('button[type=submit]').click();
+  enterPassword(password) {
+    cy.get('#password-field').type(password)
   }
+
+  clickRemember() {
+    cy.get('#user_remember_me').click()
+  }
+
+  clickLogin() {
+    cy.get('.btn-red').click()
+  }
+
+  verifyLogin() {
+    cy.url().should("include", "/multicalendar")
+  }
+
 }
 
-export default new LoginPage();
+export default LoginPage
