@@ -27,36 +27,47 @@ Cypress.Commands.add("selectDateRange", (month, startDay, endDay) => {
 
   cy.get(`[aria-label="month  ${month}"]`).within(() => {
 
-    cy.get(`.react-datepicker__day--${String(startDay).padStart(3,'0')}`)
+    cy.get(`.react-datepicker__day--${String(startDay).padStart(3, '0')}`)
       .not('.react-datepicker__day--outside-month')
       .click()
 
-    cy.get(`.react-datepicker__day--${String(endDay).padStart(3,'0')}`)
+    cy.get(`.react-datepicker__day--${String(endDay).padStart(3, '0')}`)
       .not('.react-datepicker__day--outside-month')
       .click()
 
   })
 
 });
-// ---------- API helper commands ----------
 
-Cypress.Commands.add('createTag', (listingId, tagName) => {
-  return cy.request({
-    method: 'POST',
-    url: '/api/tags',
-    body: { listingId, tagName },
-    failOnStatusCode: false
-  }).then(resp => {
-    expect(resp.status).to.eq(201);
-    return resp.body;
-  });
-});
 
-Cypress.Commands.add('getTags', listingId => {
-  return cy.request(`/api/listings/${listingId}/tags`);
-});
+Cypress.Commands.add('mockBulkUpdateTags', (data) => {
 
-Cypress.Commands.add('deleteTag', (listingId, tagId) => {
-  return cy.request('DELETE', `/api/tags/${tagId}`);
-});
+  cy.intercept('POST', '**/api/bulk_update_tags*', (req) => {
+
+    expect(req.body.rowData[0].listing_id).to.eq(data.listingId)
+    expect(req.body.rowData[0].tags).to.eq(data.tag)
+
+    req.reply({
+      statusCode: 200,
+      body: {
+        message: "SUCCESS",
+        response: {
+          mapped: [],
+          unmapped: [
+            {
+              listing_id: data.listingId,
+              pms_name: data.pmsName,
+              unique_id: `${data.listingId}___${data.pmsName}`,
+              taglist: null,
+              tags: data.tag
+            }
+          ],
+          failure: []
+        }
+      }
+    })
+
+  }).as('bulkUpdateTags')
+
+})
 

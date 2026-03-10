@@ -1,0 +1,42 @@
+{
+    "message": "SUCCESS",
+    "response": {
+        "calendar_data": [
+            {
+                "id": 580528155,
+                "start_date": "2026-03-10",
+                "end_date": "2026-03-10",
+                "price": "100",
+                "price_type": "fixed",
+                "currency": "USD",
+                "min_stay": 0,
+                "min_price": null,
+                "min_price_type": "fixed",
+                "max_price": null,
+                "max_price_type": "fixed",
+                "check_in": "0000000",
+                "check_out": "1111111",
+                "check_in_check_out_enabled": false,
+                "reason": "",
+                "group_id": null,
+                "group_name": null,
+                "listing_id": "VRMREALTY___108",
+                "pms_name": "vrm",
+                "parent_key": 2102208,
+                "base_price": null,
+                "availability": null,
+                "enforce_weekly": false,
+                "lead_time_expiry": null,
+                "disabled": false,
+                "created_at": "2026-03-10T10:58:21.000Z",
+                "updated_at": "2026-03-10T10:58:21.000Z",
+                "has_multiple_created_at": false,
+                "has_multiple_updated_at": false
+            }
+        ],
+        "pms_name": "VRM",
+        "pms_customization": {
+            "calendar_data": []
+        }
+    }
+}
