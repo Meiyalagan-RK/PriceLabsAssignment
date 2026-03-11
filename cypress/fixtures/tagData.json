@@ -1,0 +1,16 @@
+{
+    "message": "SUCCESS",
+    "response": {
+        "mapped": [],
+        "unmapped": [
+            {
+                "listing_id": "VRMREALTY___239",
+                "pms_name": "vrm",
+                "unique_id": "VRMREALTY___239___vrm",
+                "taglist": null,
+                "tags": "automation"
+            }
+        ],
+        "failure": []
+    }
+}

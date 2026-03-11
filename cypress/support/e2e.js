@@ -14,10 +14,6 @@
 import './commands';
 import 'cypress-real-events/support';
 
-// Alternatively you can use CommonJS syntax:
-// require('./commands');
-// require('cypress-real-events/support');
-
 // automatically restore cached session before each test
 beforeEach(() => {
   const username = Cypress.env('username');
@@ -27,8 +23,3 @@ beforeEach(() => {
   }
 });
 
-Cypress.on('uncaught:exception', (err, runnable) => {
-  // returning false here prevents Cypress from
-  // failing the test due to cross-origin script errors
-  return false
-});
