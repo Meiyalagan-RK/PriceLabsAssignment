@@ -1,105 +1,93 @@
 import { empty } from "rxjs"
 
-class multicalenderDSO { 
- 
-    // 
-viewOverrides(listingName){
+class multicalenderDSO {
+
+  visitHomePage() {
+    cy.visit('/multicalendar')
+  }
+  viewOverrides(listingName) {
     cy.contains('tr', listingName)
-    .find('[qa-id="listing-ellipses-VRMREALTY___108"]')
-    .should('be.visible')
-    .click({force:true})
+      .find('[qa-id="listing-ellipses-VRMREALTY___108"]')
+      .should('be.visible')
+      .click({ force: true })
     cy.get('[qa-id="dso-view-VRMREALTY___108"]')
-    .should('be.visible')
-    .click()
-}
+      .should('be.visible')
+      .click()
+  }
 
-validateListingOverridesEmptyState(emptyState){
-    cy.get('[qa-id="no-dso"]').should('contain.text',emptyState)
-}
+  validateListingOverridesEmptyState(emptyState) {
+    cy.get('[qa-id="no-dso"]').should('contain.text', emptyState)
+  }
 
-validateListingOverrides(startDate, endDate, price){
+  validateListingOverrides(startDate, endDate, price) {
 
-  cy.get('[qa-id="update-remove-to-child-mc"]')
-    .should('contain.text','Listing Level Overrides')
+    cy.get('[qa-id="update-remove-to-child-mc"]')
+      .should('contain.text', 'Listing Level Overrides')
 
-  cy.contains('tbody tr', startDate)
-    .should('be.visible')
-    .within(()=>{
-      cy.get('td').eq(0).should('contain', startDate)
-      cy.get('td').eq(1).should('contain', endDate)
-      cy.get('td').eq(2).should('contain', price)
-    })
+    cy.contains('tbody tr', startDate)
+      .should('be.visible')
+      .within(() => {
+        cy.get('td').eq(0).should('contain', startDate)
+        cy.get('td').eq(1).should('contain', endDate)
+        cy.get('td').eq(2).should('contain', price)
+      })
 
-}
+  }
 
-openAddOverrideModal(listingName){
-  cy.contains('tr', listingName)
-    .find('[qa-id="listing-ellipses-VRMREALTY___108"]')
-    .should('be.visible')
-    .click({force:true})
-  cy.get('[qa-id="dso-add-VRMREALTY___108"]')
-    .should('be.visible')
-    .click()
-}
-validateDSOModal(title){
+  openAddOverrideModal(listingName) {
+    cy.contains('tr', listingName)
+      .find('[qa-id="listing-ellipses-VRMREALTY___108"]')
+      .should('be.visible')
+      .click({ force: true })
+    cy.get('[qa-id="dso-add-VRMREALTY___108"]')
+      .should('be.visible')
+      .click()
+  }
+  validateDSOModal(title) {
     cy.get('[qa-id="dso-modal-title"]')
       .should('be.visible')
       .and('contain', title)
       .scrollIntoView()
   }
 
-validateError(messages){
-  messages.forEach((msg)=>{
-    cy.get('[data-status="error"] p')
-      .should('contain.text', msg)
-  })
-}
+  validateError(messages) {
+    messages.forEach((msg) => {
+      cy.get('[data-status="error"] p')
+        .should('contain.text', msg)
+    })
+  }
 
-  clickOnAdd(){
+  clickOnAdd() {
     cy.get('[qa-id="add-dso-button"]').click()
   }
 
-  enterfinalprice(price){
+  enterfinalprice(price) {
     // cy.contains('Final Price').closest('[qa-id="dso-price"]').should('be.visible').type(100)
     cy.get('[qa-id="dso-price"]').should('be.visible').type(price)
   }
 
-  enterMinimumPrice(price){
+  enterMinimumPrice(price) {
     cy.get('[qa-id="dso-min-price"]').should('be.visible').type(price)
   }
 
-  enterMaxprice(price){
+  enterMaxprice(price) {
     cy.get('[qa-id="dso-max-price"]').should('be.visible').type(price)
   }
-  enterBasePrice(price){
+  enterBasePrice(price) {
     cy.get('[qa-id="dso-base-price"]').should('be.visible').type(price)
   }
 
+  selectDateSingleMonth(startDay, endDay) {
+    cy.selectDateRangeSameMonth(startDay, endDay)
+  }
 
+  openDatePicker() {
+    cy.get('[qa-id="dso-modal-date-range-picker"]').click()
+  }
   // multicalenderDSO.selectDateRange(10, 15)
-    // Start → Mar 10
-    // End   → Mar 15
+  // Start → Mar 10
+  // End   → Mar 15
 
-selectDateRange(startDay, endDay){
-    cy.get('[qa-id="dso-modal-date-range-picker"] [qa-id="date-picker-calendar-start"]').click()
-    cy.get('.react-datepicker__month-container')
-     .first()
-     .within(()=>{
-
-    cy.get(`.react-datepicker__day--${String(startDay).padStart(3,'0')}`)
-      .click()
-
-    cy.get(`.react-datepicker__day--${String(endDay).padStart(3,'0')}`)
-      .click()
-
-  })
-    cy.get('[qa-id="dso-modal-date-range-picker"] [qa-id="date-picker-calendar-start"]')
-      .invoke('text')
-      .should('include', 'Mar 10')
-    cy.get('[qa-id="dso-modal-date-range-picker"] [qa-id="date-picker-calendar-end"]')
-      .invoke('text')
-     .should('include', 'Mar 15')
-}
 
 
 }

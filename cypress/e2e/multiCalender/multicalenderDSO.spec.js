@@ -1,11 +1,11 @@
-import MulticalenderPage from '../pageObjects/MulticalenderPage';
 import multicalenderDSO from '../pageObjects/multicalenderOverride'
+
 describe("Multicalender DSO feature", () => {
 
   context('Create and validate DSO Overrides', () => {
     beforeEach(() => {
       // home page
-      MulticalenderPage.visitHomePage()
+      multicalenderDSO.visitHomePage()
     });
 
     it('Verify the Listing Level override is empty in viewOverides', () => {
@@ -28,7 +28,7 @@ describe("Multicalender DSO feature", () => {
     it('Validating final price should not be saved less tham 10 USD', () => {
       multicalenderDSO.openAddOverrideModal("192 Seasonal Property")
       multicalenderDSO.validateDSOModal("Date Specific Overrides")
-      multicalenderDSO.selectDateRange(10, 15)
+      multicalenderDSO.selectDateSingleMonth(14, 20)
       multicalenderDSO.enterfinalprice(1)
       multicalenderDSO.clickOnAdd()
       multicalenderDSO.validateError(['Fixed custom pricing should be greater than 10'])
