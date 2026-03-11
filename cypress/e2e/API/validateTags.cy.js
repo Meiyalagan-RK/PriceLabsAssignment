@@ -91,7 +91,7 @@ describe('Tags feature', () => {
 
   });
 
-  it('Send request with expired/invalid auth token', () => {
+  it('Validate send request with expired/invalid auth token', () => {
     cy.clearCookies()
     cy.clearLocalStorage()
     const timestamp = Date.now();
