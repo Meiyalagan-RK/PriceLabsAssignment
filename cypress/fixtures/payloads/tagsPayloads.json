@@ -1,0 +1,38 @@
+{
+  "addTag": {
+      "rowData": [
+        {
+          "listing_id": "VRMREALTY___239",
+          "pms_name": "vrm",
+          "tags": "automation"
+        }
+      ],
+      "page": 1,
+      "rowIndex": 2,
+      "successMessage": "Tags have been updated!"
+    },
+
+  "removeTag": {
+      "rowData": [
+        {
+          "listing_id": "VRMREALTY___239",
+          "pms_name": "vrm",
+          "tags": ""
+        }
+      ],
+      "page": 1,
+      "rowIndex": 2,
+      "successMessage": "Tags have been updated!"
+    },
+
+  "invalidPayload": {
+    "rowData": [
+      {
+        "pms_name": "vrm",
+        "tags": "automation"
+      }
+    ],
+    "page": 1,
+    "rowIndex": 2
+  }
+}
