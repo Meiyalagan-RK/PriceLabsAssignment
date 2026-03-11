@@ -33,6 +33,7 @@ describe("Multicalender DSO feature", () => {
       multicalenderDSO.clickOnAdd()
       multicalenderDSO.validateError(['Fixed custom pricing should be greater than 10'])
     })
+
     it('Validating DSO updated successfully', () => {
       cy.intercept("POST", "**/api/add_custom_pricing", {
         statusCode: 200,
@@ -90,6 +91,47 @@ describe("Multicalender DSO feature", () => {
           price
         )
       })
+    })
+
+    it.only('Validating DSO updated successfully', () => {
+
+      cy.fixture('mock/listOverrideData.json').then((data) => {
+
+        cy.mockAddCustomPricing()
+
+        cy.fixture('mock/validatingCreatedData').then((mockData) => {
+
+          cy.mockCalendarData(mockData)
+
+          multicalenderDSO.openAddOverrideModal(data.listingName)
+
+          multicalenderDSO.validateDSOModal("Date Specific Overrides")
+
+          multicalenderDSO.selectDateSingleMonth(data.startDay, data.endDay)
+
+          multicalenderDSO.enterfinalprice(data.price)
+
+          multicalenderDSO.clickOnAdd()
+
+          cy.validateCustomPricingRequest(data)
+
+          multicalenderDSO.viewOverrides(data.listingName)
+
+          cy.wait("@getCalendarData")
+
+          const override = mockData.response.calendar_data[0]
+          const price = `${override.price} $`
+
+          multicalenderDSO.validateListingOverrides(
+            data.startDate,
+            data.endDate,
+            price
+          )
+
+        })
+
+      })
+
     })
   })
 })

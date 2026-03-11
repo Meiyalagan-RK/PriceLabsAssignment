@@ -1,0 +1,29 @@
+{
+    "validRemove": {
+        "price": "50",
+        "reason": "",
+        "basePrice": null,
+        "priceType": "fixed",
+        "pmsName": "vrm",
+        "minStay": 0,
+        "minPrice": null,
+        "minPriceType": "fixed",
+        "maxPrice": null,
+        "maxPriceType": "fixed",
+        "listingId": "VRMREALTY___108",
+        "currency": "USD",
+        "parentKey": 2102208,
+        "hasChildren": false,
+        "page": 1,
+        "startDate": "Mar 16, 2026",
+        "endDate": "Mar 16, 2026",
+        "isParentListing": true,
+        "currentRowIndex": 1,
+        "isViewOverrideCopyDsoChecked": false,
+        "isPricingPage": false,
+        "checkIn": "0000000",
+        "checkOut": "1111111",
+        "checkInCheckOutEnabled": false,
+        "leadTimeExpiry": ""
+    }
+}

@@ -1,4 +1,3 @@
-import { empty } from "rxjs"
 
 class multicalenderDSO {
 
@@ -84,10 +83,6 @@ class multicalenderDSO {
   openDatePicker() {
     cy.get('[qa-id="dso-modal-date-range-picker"]').click()
   }
-  // multicalenderDSO.selectDateRange(10, 15)
-  // Start → Mar 10
-  // End   → Mar 15
-
 
 
 }

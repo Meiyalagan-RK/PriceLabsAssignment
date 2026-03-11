@@ -104,3 +104,30 @@ Cypress.Commands.add('mockBulkUpdateTags', (data) => {
 
 })
 
+Cypress.Commands.add("mockAddCustomPricing", () => {
+
+  cy.intercept("POST", "**/api/add_custom_pricing", {
+    statusCode: 200,
+    body: {
+      message: "SUCCESS",
+      response: {
+        success: "Your custom prices have been updated."
+      },
+      status: 200
+    }
+  }).as("customPricing")
+
+})
+
+Cypress.Commands.add("mockCalendarData", (mockData) => {
+
+  cy.intercept({
+    method: "GET",
+    pathname: "/api/get_calendar_data"
+  }, {
+    statusCode: 200,
+    body: mockData
+  }).as("getCalendarData")
+
+})
+
