@@ -1,5 +1,7 @@
 
 import multicalenderOverrideLocators from "../locators/multicalenderOverrideLocators"
+import columnGridLocators from "../locators/columnGridLocators"
+
 
 class multicalenderDSO {
 
@@ -86,6 +88,30 @@ class multicalenderDSO {
   openDatePicker() {
     cy.get(multicalenderOverrideLocators.dsoModalDateRangePicker).click()
   }
+
+  // findListingRow(listingName) {
+  //   return cy.contains(columnGridLocators.listingRow, listingName).should('be.visible')
+  // }
+
+  // dragAcrossPrices(listingName, fromColIndex, toColIndex) {
+
+  //   this.findListingRow(listingName).within(() => {
+  //  //   qa-id="price-tooltip--VRMREALTY___108-10"
+  //           cy.get(`[qa-id="price-tooltip--VRMREALTY___108-${fromColIndex}"]`).should('be.visible')
+  //       .realMouseDown()
+
+  //     cy.get(`[qa-id="price-tooltip--VRMREALTY___108-${toColIndex}"]`)
+  //       .realMouseMove()
+
+  //     cy.get(`[qa-id="price-tooltip--VRMREALTY___108-${toColIndex}"]`)
+  //       .realMouseUp()
+
+  //   })
+  // }
+
+  // verifyDSOModalVisible() {
+  //   cy.get(columnGridLocators.modal).should("be.visible")
+  // }
 
 
 }

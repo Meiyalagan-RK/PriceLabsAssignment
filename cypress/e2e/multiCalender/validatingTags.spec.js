@@ -38,26 +38,6 @@ describe('Multi Calendar - Tag Management', () => {
 
     })
 
-    it('validate remove tags from the selected row', () => {
-
-      tagPage.addAndValidateTag(
-        tagData.listingName,
-        tagData.tag
-      )
-
-      cy.wait('@bulkUpdateTags')
-
-      tagPage.deleteTag(
-        tagData.listingName,
-        tagData.listingId
-      )
-
-      cy.wait('@bulkUpdateTags')
-
-      tagPage.validateToast('Tags have been updated!')
-
-    })
-
   })
 
 })

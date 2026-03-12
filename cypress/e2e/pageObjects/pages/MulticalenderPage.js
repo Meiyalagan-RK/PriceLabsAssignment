@@ -1,4 +1,5 @@
 import multicalenderLocators from "../locators/multicalenderLocators"
+import columnGridLocators from "../locators/columnGridLocators"
 
 class MulticalenderPage {
 

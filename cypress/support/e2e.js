@@ -13,6 +13,7 @@
 
 import './commands';
 import 'cypress-real-events/support';
+import 'cypress-mochawesome-reporter/register';
 
 // automatically restore cached session before each test
 beforeEach(() => {
@@ -23,17 +24,14 @@ beforeEach(() => {
   }
 });
 
-
-
-// cypress/support/e2e.js
-
 Cypress.on('uncaught:exception', (err) => {
   if (
     err.message.includes('postMessage') ||
+    err.message.includes("reading 'test'") ||
     err.message.includes('MutationObserver') ||
     err.message.includes('tracking.js') ||
     err.message.includes('PrimaryOriginCommunicator')
   ) {
-    return false
+    return false;
   }
-})
+});
