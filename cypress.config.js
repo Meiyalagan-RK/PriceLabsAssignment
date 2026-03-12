@@ -1,19 +1,32 @@
 const { defineConfig } = require('cypress');
+const mochawesome = require('cypress-mochawesome-reporter/plugin');
 
 module.exports = defineConfig({
+  experimentalMemoryManagement: true,
+  reporter: 'cypress-mochawesome-reporter',
+  reporterOptions: {
+    reportDir: 'cypress/reports',
+    overwrite: false,
+    html: true,
+    json: true,
+    embeddedScreenshots: true,
+    inlineAssets: true
+  },
   e2e: {
     baseUrl: 'https://app.pricelabs.co',
-        env: {
-      loginUrl: "https://pricelabs.co/signin",
-      username: "qa.pricelabs@gmail.com",
-      password: "qg33N$yxJP"
+    env: {
+      // For real projects prefer cypress.env.json or environment variables
+      loginUrl: 'https://pricelabs.co/signin',
+      username: 'qa.pricelabs@gmail.com',
+      password: 'qg33N$yxJP'
     },
     supportFile: 'cypress/support/e2e.js',
     specPattern: 'cypress/e2e/**/*.js',
     chromeWebSecurity: false,
+    numTestsKeptInMemory: 1,
     setupNodeEvents(on, config) {
-      // implement node event listeners here if needed
-    },
-  },
+      mochawesome(on);
+      return config;
+    }
+  }
 });
-

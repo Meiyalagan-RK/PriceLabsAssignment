@@ -1,5 +1,5 @@
 
-import multicalenderPage from "../pageObjects/MulticalenderPage";
+import multicalenderPage from "../pageObjects/pages/MulticalenderPage";
 
 describe('Testing multicalender features', () => {
 
