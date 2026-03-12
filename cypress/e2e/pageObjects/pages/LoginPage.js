@@ -1,3 +1,5 @@
+import loginLocators from "../locators/loginLocators"
+
 class LoginPage {
 
   visitLogin() {
@@ -5,19 +7,19 @@ class LoginPage {
   }
 
   enterEmail(email) {
-    cy.get('#user_email').type(email)
+    cy.get(loginLocators.emailInput).type(email)
   }
 
   enterPassword(password) {
-    cy.get('#password-field').type(password)
+    cy.get(loginLocators.passwordInput).type(password)
   }
 
   clickRemember() {
-    cy.get('#user_remember_me').click()
+    cy.get(loginLocators.rememberMeCheckbox).click()
   }
 
   clickLogin() {
-    cy.get('.btn-red').click()
+    cy.get(loginLocators.loginButton).click()
   }
 
   verifyLogin() {

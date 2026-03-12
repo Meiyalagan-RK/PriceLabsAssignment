@@ -1,3 +1,5 @@
+import searchLocators from "../locators/searchLocators"
+
 class SearchPage {
 
     visitHomePage() {
@@ -5,11 +7,11 @@ class SearchPage {
     }
 
     clickOnSearch() {
-        cy.get('[qa-id="search-input"]').should('be.visible').click()
+        cy.get(searchLocators.searchInput).should('be.visible').click()
     }
 
     enterSearchQuery(query) {
-        cy.get('[qa-id="search-input"]').type(query)
+        cy.get(searchLocators.searchInput).type(query)
     }
 
     verifyListName(listingName) {

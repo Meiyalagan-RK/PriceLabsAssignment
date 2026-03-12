@@ -1,4 +1,4 @@
-import searchPage from "../pageObjects/search"
+import searchPage from "../pageObjects/pages/search"
 
 describe("Search feature Home Page", () => {
     

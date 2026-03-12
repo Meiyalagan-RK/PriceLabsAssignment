@@ -1,4 +1,4 @@
-import tagPage from "../pageObjects/addingTags"
+import tagPage from "../pageObjects/pages/addingTags"
 
 describe('Multi Calendar - Tag Management', () => {
 
@@ -11,13 +11,17 @@ describe('Multi Calendar - Tag Management', () => {
 
   context('Add tag to listing using mocked API', () => {
 
-    it('Validate creating tags added from the row', () => {
+    beforeEach(() => {
 
       tagPage.visitHomePage()
 
       cy.mockBulkUpdateTags(tagData)
 
       tagPage.enableTagsColumn()
+
+    })
+
+    it('Validate creating tags added from the row', () => {
 
       tagPage.addAndValidateTag(
         tagData.listingName,
@@ -28,19 +32,20 @@ describe('Multi Calendar - Tag Management', () => {
 
       tagPage.validateToast('Tags have been updated!')
 
-      // Validate duplicate tag
-      tagPage.clickOnAddTagIcon(tagData.tag)
+      tagPage.addTag(tagData.tag)
+
       tagPage.validateError(['Tag already exists'])
 
     })
 
     it('validate remove tags from the selected row', () => {
 
-      tagPage.visitHomePage()
+      tagPage.addAndValidateTag(
+        tagData.listingName,
+        tagData.tag
+      )
 
-      cy.mockBulkUpdateTags(tagData)
-
-      tagPage.enableTagsColumn()
+      cy.wait('@bulkUpdateTags')
 
       tagPage.deleteTag(
         tagData.listingName,

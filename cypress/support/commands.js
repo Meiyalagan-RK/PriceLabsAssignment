@@ -1,4 +1,4 @@
-import LoginPage from "../e2e/pageObjects/LoginPage"
+import LoginPage from "../e2e/pageObjects/pages/LoginPage"
 
 const loginPage = new LoginPage()
 

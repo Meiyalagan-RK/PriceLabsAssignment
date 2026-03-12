@@ -24,11 +24,16 @@ beforeEach(() => {
 });
 
 
-beforeEach(() => {
-  // cypress/support/e2e.js
 
-  Cypress.on('uncaught:exception', (err, runnable) => {
-    // returning false prevents Cypress from failing the test
+// cypress/support/e2e.js
+
+Cypress.on('uncaught:exception', (err) => {
+  if (
+    err.message.includes('postMessage') ||
+    err.message.includes('MutationObserver') ||
+    err.message.includes('tracking.js') ||
+    err.message.includes('PrimaryOriginCommunicator')
+  ) {
     return false
-  })
+  }
 })
