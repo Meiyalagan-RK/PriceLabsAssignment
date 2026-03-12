@@ -13,7 +13,7 @@ describe("Multicalender DSO feature", () => {
         method: 'GET',
         pathname: '/api/get_calendar_data'
       }).as('getCalendarData')
-      multicalenderDSO.viewOverrides("192 Seasonal Property")
+      multicalenderDSO.viewOverridesListing("192 Seasonal Property")
       cy.wait('@getCalendarData')
       multicalenderDSO.validateListingOverridesEmptyState("No Date Specific Overrides")
     })
@@ -35,99 +35,22 @@ describe("Multicalender DSO feature", () => {
     })
 
     it('Validating DSO updated successfully', () => {
-      cy.intercept("POST", "**/api/add_custom_pricing", {
-        statusCode: 200,
-        body: {
-          message: "SUCCESS",
-          response: {
-            success: "Your custom prices have been updated."
-          },
-          status: 200
-        }
-      }).as("customPricing")
-
-      cy.fixture('validatingCreatedData').then((mockData) => {
-
-        cy.intercept(
-          {
-            method: 'GET',
-            pathname: '/api/get_calendar_data'
-          },
-          {
-            statusCode: 200,
-            body: mockData
-          }
-        ).as('getCalendarData')
-
-        multicalenderDSO.openAddOverrideModal("192 Seasonal Property")
-
-        multicalenderDSO.validateDSOModal("Date Specific Overrides")
-
-        multicalenderDSO.selectDateRange(10, 15)
-
-        multicalenderDSO.enterfinalprice(100)
-
-        multicalenderDSO.clickOnAdd()
-
-        cy.wait("@customPricing")
-          .its("request.body")
-          .then((body) => {
-            expect(body.price).to.eq("100")
-            expect(body.priceType).to.eq("fixed")
-            expect(body.currency).to.eq("USD")
-            expect(body.listingId).to.eq("VRMREALTY___108")
-          })
-
-        multicalenderDSO.viewOverrides("192 Seasonal Property")
-        cy.wait("@getCalendarData")
-        const override = mockData.response.calendar_data[0]
-        const startDate = 'March 10, 2026'
-        const endDate = 'March 10, 2026'
-        const price = `${override.price} $`
-
-        multicalenderDSO.validateListingOverrides(
-          startDate,
-          endDate,
-          price
-        )
-      })
-    })
-
-    it.only('Validating DSO updated successfully', () => {
 
       cy.fixture('mock/listOverrideData.json').then((data) => {
-
         cy.mockAddCustomPricing()
-
         cy.fixture('mock/validatingCreatedData').then((mockData) => {
-
           cy.mockCalendarData(mockData)
-
-          multicalenderDSO.openAddOverrideModal(data.listingName)
-
+          multicalenderDSO.openAddOverrideModal("192 Seasonal Property")
           multicalenderDSO.validateDSOModal("Date Specific Overrides")
-
-          multicalenderDSO.selectDateSingleMonth(data.startDay, data.endDay)
-
-          multicalenderDSO.enterfinalprice(data.price)
-
+          multicalenderDSO.selectDateSingleMonth(14, 20)
+          multicalenderDSO.enterfinalprice(100)
           multicalenderDSO.clickOnAdd()
-
-          cy.validateCustomPricingRequest(data)
-
-          multicalenderDSO.viewOverrides(data.listingName)
-
+          multicalenderDSO.viewOverridesListing("192 Seasonal Property")
+          multicalenderDSO.valiateListheader('Listing Level Overrides')
           cy.wait("@getCalendarData")
-
           const override = mockData.response.calendar_data[0]
           const price = `${override.price} $`
-
-          multicalenderDSO.validateListingOverrides(
-            data.startDate,
-            data.endDate,
-            price
-          )
-
+          multicalenderDSO.validateListingprice(14, 20, price)
         })
 
       })

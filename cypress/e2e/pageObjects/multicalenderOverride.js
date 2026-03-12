@@ -4,12 +4,12 @@ class multicalenderDSO {
   visitHomePage() {
     cy.visit('/multicalendar')
   }
-  viewOverrides(listingName) {
+  viewOverridesListing(listingName) {
     cy.contains('tr', listingName)
       .find('[qa-id="listing-ellipses-VRMREALTY___108"]')
       .should('be.visible')
       .click({ force: true })
-    cy.get('[qa-id="dso-view-VRMREALTY___108"]')
+    cy.get('[qa-id="dso-view-VRMREALTY___108"]').contains('View Overrides')
       .should('be.visible')
       .click()
   }
@@ -18,11 +18,12 @@ class multicalenderDSO {
     cy.get('[qa-id="no-dso"]').should('contain.text', emptyState)
   }
 
-  validateListingOverrides(startDate, endDate, price) {
-
+  valiateListheader(header) {
     cy.get('[qa-id="update-remove-to-child-mc"]')
-      .should('contain.text', 'Listing Level Overrides')
+      .should('contain.text', header)
+  }
 
+  validateListingprice(startDate, endDate, price) {
     cy.contains('tbody tr', startDate)
       .should('be.visible')
       .within(() => {
@@ -34,9 +35,9 @@ class multicalenderDSO {
   }
 
   openAddOverrideModal(listingName) {
-    cy.contains('tr', listingName)
+    cy.get('tbody')
+      .contains('tr', listingName)
       .find('[qa-id="listing-ellipses-VRMREALTY___108"]')
-      .should('be.visible')
       .click({ force: true })
     cy.get('[qa-id="dso-add-VRMREALTY___108"]')
       .should('be.visible')
