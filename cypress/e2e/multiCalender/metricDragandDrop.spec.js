@@ -1,5 +1,4 @@
-
-import multicalenderPage from "../pageObjects/MulticalenderPage";
+import multicalenderPage from "../pageObjects/pages/metric";
 
 describe('Testing multicalender features', () => {
 

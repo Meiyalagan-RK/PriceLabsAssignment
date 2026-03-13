@@ -1,4 +1,4 @@
-import multicalenderDSO from '../pageObjects/multicalenderOverride'
+import multicalenderDSO from '../pageObjects/pages/multicalenderOverride'
 
 describe("Multicalender DSO feature", () => {
 
