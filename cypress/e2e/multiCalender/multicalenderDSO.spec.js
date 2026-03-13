@@ -34,6 +34,16 @@ describe("Multicalender DSO feature", () => {
       multicalenderDSO.validateError(['Fixed custom pricing should be greater than 10'])
     })
 
+    it('Validating final price should not be saved less than 10 USD for different months', () => {
+      multicalenderDSO.openAddOverrideModal("192 Seasonal Property")
+      multicalenderDSO.validateDSOModal("Date Specific Overrides")
+      // start date from first visible month, end date from second visible month
+      multicalenderDSO.selectDateDifferentMonths('2026-03', 28, '2026-04', 2)
+      multicalenderDSO.enterfinalprice(1)
+      multicalenderDSO.clickOnAdd()
+      multicalenderDSO.validateError(['Fixed custom pricing should be greater than 10'])
+    })
+
     it('Validating DSO updated successfully', () => {
 
       cy.fixture('mock/listOverrideData.json').then((data) => {

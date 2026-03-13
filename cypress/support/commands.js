@@ -23,6 +23,7 @@ Cypress.Commands.add("loginSession", (username, password) => {
 
 // multicalenderDSO.selectDateSingleMonth(14, 20)
 Cypress.Commands.add("selectDateRangeSameMonth", (startDay, endDay) => {
+  // open start date picker 
   cy.get('[qa-id="dso-modal-date-range-picker"] [qa-id="date-picker-calendar-start"]')
     .scrollIntoView()
     .click({ force: true });
@@ -42,34 +43,32 @@ Cypress.Commands.add("selectDateRangeSameMonth", (startDay, endDay) => {
 });
 
 Cypress.Commands.add("selectDateRangeDifferentMonths", (startMonth, startDay, endMonth, endDay) => {
-  // open month selector
-  cy.get('[qa-id="month-header-menu-button"]').click();
+  // open start date picker 
+  cy.get('[qa-id="dso-modal-date-range-picker"] [qa-id="date-picker-calendar-start"]')
+    .scrollIntoView()
+    .click({ force: true });
 
-  // select start month
-  cy.get(`[qa-id="date-range-picker-month-${startMonth}"]`)
-    .should('be.visible')
-    .click();
+  cy.get('.react-datepicker').should('be.visible');
 
-  const start = String(startDay).padStart(3, '0');
+  // select start date from the first (start) month
+  cy.get('.react-datepicker__month')
+    .first()
+    .within(() => {
+      cy.contains('.react-datepicker__day', new RegExp(`^${startDay}$`))
+        .not('.react-datepicker__day--outside-month')
+        .not('.react-datepicker__day--disabled') // prevents selecting past dates
+        .click({ force: true });
+    });
 
-  cy.get(`[aria-label="month  ${startMonth}"]`)
-    .find(`.react-datepicker__day--${start}`)
-    .not('.react-datepicker__day--outside-month')
-    .click();
-
-  // select end month
-  cy.get('[qa-id="month-header-menu-button"]').click();
-
-  cy.get(`[qa-id="date-range-picker-month-${endMonth}"]`)
-    .should('be.visible')
-    .click();
-
-  const end = String(endDay).padStart(3, '0');
-
-  cy.get(`[aria-label="month  ${endMonth}"]`)
-    .find(`.react-datepicker__day--${end}`)
-    .not('.react-datepicker__day--outside-month')
-    .click();
+  // select end date from the last (end) month
+  cy.get('.react-datepicker__month')
+    .last()
+    .within(() => {
+      cy.contains('.react-datepicker__day', new RegExp(`^${endDay}$`))
+        .not('.react-datepicker__day--outside-month')
+        .not('.react-datepicker__day--disabled') // prevents selecting past dates
+        .click({ force: true });
+    });
 });
 
 Cypress.Commands.add('mockBulkUpdateTags', (data) => {

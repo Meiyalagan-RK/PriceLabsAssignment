@@ -85,6 +85,10 @@ class multicalenderDSO {
     cy.selectDateRangeSameMonth(startDay, endDay)
   }
 
+  selectDateDifferentMonths(startMonth, startDay, endMonth, endDay) {
+    cy.selectDateRangeDifferentMonths(startMonth, startDay, endMonth, endDay)
+  }
+
   openDatePicker() {
     cy.get(multicalenderOverrideLocators.dsoModalDateRangePicker).click()
   }
