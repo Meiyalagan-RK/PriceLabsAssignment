@@ -96,6 +96,11 @@ You can override sensitive values locally using `cypress.env.json` (not committe
   - Uses `cy.intercept().as(...)` with `cy.wait('@alias')` to wait for network calls.
   - **No `cy.wait(number)`** is used.
 
+- **Extra dependencies I added for this assignment**
+  - **`cypress-real-events`**: Needed for real user actions like mouse hover / real mouse drag (some UI interactions don’t work reliably with normal Cypress events).
+  - **`@4tw/cypress-drag-drop`**: Used to make drag-and-drop actions easier to write and more stable.
+  - **`cypress-mochawesome-reporter`**: Used to generate a simple HTML report after the test run.
+
 - **UI Components Coverage**
   - Tests interact with:
     - **Modals** (DSO modal, metrics modal).
