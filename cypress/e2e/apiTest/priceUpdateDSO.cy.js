@@ -1,19 +1,18 @@
-// This suite tests creating and updating custom prices for a DSO listing
 describe('Update Custom Prices API Test', () => {
 
-  // Common endpoints for creating prices and reading calendar data
+  // Common endpoints for creating prices and getting calendar data
   const endpoint = 'https://app.pricelabs.co/api/add_custom_pricing'
   const getEndpoint = 'https://app.pricelabs.co/api/get_calendar_data'
   let payloads
 
   before(() => {
-    // Load all price update payloads once and reuse across tests
+    // get payloads from mock folder
     cy.fixture('payloads/priceUpdate').then((data) => {
       payloads = data
     })
   })
 
-  // Helper to send POST request to add/update custom pricing
+  //POST request function created 
   const sendRequest = (payload, headers = {}) => {
     return cy.request({
       method: 'POST',
@@ -27,7 +26,7 @@ describe('Update Custom Prices API Test', () => {
     })
   }
 
-  // Helper to call calendar API and verify what is stored on server
+  // GET request function created 
   const getCalendarRequest = (query) => {
     return cy.request({
       method: 'GET',
@@ -37,7 +36,7 @@ describe('Update Custom Prices API Test', () => {
     })
   }
 
-  // Reusable success validation: checks common SUCCESS response shape
+  // common SUCCESS response function
   const validateSuccess = (response) => {
     expect(response.status).to.eq(200)
     expect(response.body.message).to.eq('SUCCESS')
@@ -70,19 +69,13 @@ describe('Update Custom Prices API Test', () => {
             expect(calendarData).to.be.an('array').and.to.have.length.greaterThan(0)
 
             const firstEntry = calendarData[0]
-
-            // basic identifiers
             expect(firstEntry.listing_id).to.eq(expected.listing_id)
             expect(firstEntry.pms_name).to.eq(expected.pms_name)
             expect(firstEntry.parent_key).to.eq(expected.parent_key)
-
-            // price fields
             expect(firstEntry.price).to.eq(expected.price)
             expect(firstEntry.base_price).to.eq(expected.base_price)
             expect(firstEntry.min_price).to.eq(expected.min_price)
             expect(firstEntry.max_price).to.eq(expected.max_price)
-
-            // date range
             expect(firstEntry.start_date).to.eq(expected.start_date)
             expect(firstEntry.end_date).to.eq(expected.end_date)
           })
