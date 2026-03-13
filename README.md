@@ -2,33 +2,59 @@
 
 Cypress automation for the PriceLabs Multicalendar, implemented using a hybrid TDD / data‑driven Page Object Model (POM) with UI and API coverage.
 
-### 🛠️ Setup & Requirements
+### What I covered
 
-- **Node.js**: v16+ (LTS recommended) and **npm**.
-- **Clone** this repository and navigate to the root:
+- **UI tests** for the main Multicalendar scenarios (including negative validations).
+- **API mocking** where needed so the tests stay stable and predictable.
+- **Reusable structure** (kept the code organized as per the requirements).
+
+### Environment setup
+
+- The tests run against the QA app URL.
+- Login is done using environment values (so credentials are not hardcoded inside tests).
+- You can set values using either:
+  - **CLI env** (recommended for CI), or
+  - a local **`cypress.env.json`** file (not committed)
+- Global hooks and behavior live in:
+  - `cypress/support/e2e.js` – imports commands, real‑events, mochawesome reporter, 
+  and sets up a `beforeEach` to restore the authenticated session plus global 
+  `uncaught:exception` handling.
+  - `cypress/support/commands.js` – custom commands for:
+    - Session‑based login (`cy.loginSession`)
+    - Date‑picker interactions
+    - Multicalendar drag‑and‑drop helpers
+    - Mocking DSO/tag APIs for deterministic UI tests
+
+```bash
+CYPRESS_loginUrl="https://pricelabs.co/signin" \
+CYPRESS_username="your_email" \
+CYPRESS_password="your_password" \
+npm run cypress:run
 ```
 
-- **Install dependencies**:
+### Setup
+
+- Install dependencies:
 
 ```bash
 npm install
 ```
 
-### How to Run the Tests
+### Run tests
 
-- **Open Cypress runner (interactive UI)**:
+- Open Cypress runner:
 
 ```bash
 npm run cypress:open
 ```
 
-- **Run all specs headless (CI‑style)**:
+- Run all tests headless:
 
 ```bash
 npm run cypress:run
 ```
 
-- **Run with Mochawesome reporting** (HTML + JSON reports under `cypress/reports`):
+- Run tests with HTML report:
 
 ```bash
 npm run cypress:run:report
@@ -91,10 +117,6 @@ You can override sensitive values locally using `cypress.env.json` (not committe
 - **API Testing**
   - `cypress/e2e/API/*.cy.js` specs:
   - E2E DSO changes and attempts to save DSO with empty values or invalid/out‑of‑bounds final price 
-
-- **Wait‑for‑Settle / Flake Avoidance**
-  - Uses `cy.intercept().as(...)` with `cy.wait('@alias')` to wait for network calls.
-  - **No `cy.wait(number)`** is used.
 
 - **Extra dependencies I added for this assignment**
   - **`cypress-real-events`**: Needed for real user actions like mouse hover / real mouse drag (some UI interactions don’t work reliably with normal Cypress events).
