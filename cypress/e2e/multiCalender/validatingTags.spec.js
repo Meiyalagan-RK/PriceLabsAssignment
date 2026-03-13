@@ -1,4 +1,4 @@
-import tagPage from "../pageObjects/pages/addingTags"
+import tagPage from "../pageObjects/pages/Tags"
 
 describe('Multi Calendar - Tag Management', () => {
 
