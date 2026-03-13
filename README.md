@@ -1,15 +1,11 @@
 ## PriceLabsAssignment
 
-Cypress automation for the PriceLabs Multicalendar, implemented using a **hybrid TDD / data‑driven Page Object Model (POM)** with UI and API coverage.
+Cypress automation for the PriceLabs Multicalendar, implemented using a hybrid TDD / data‑driven Page Object Model (POM) with UI and API coverage.
 
 ### 🛠️ Setup & Requirements
 
 - **Node.js**: v16+ (LTS recommended) and **npm**.
 - **Clone** this repository and navigate to the root:
-
-```bash
-git clone <your-repo-url>
-cd PriceLabsAssignment
 ```
 
 - **Install dependencies**:
@@ -18,7 +14,7 @@ cd PriceLabsAssignment
 npm install
 ```
 
-### ▶️ How to Run the Tests
+### How to Run the Tests
 
 - **Open Cypress runner (interactive UI)**:
 
@@ -54,7 +50,7 @@ Screenshots and videos on failure are captured by Cypress, and the **`cypress-mo
     - Multicalendar drag‑and‑drop helpers
     - Mocking DSO/tag APIs for deterministic UI tests
 
-You can override sensitive values locally using `cypress.env.json` (not committed) or CLI env variables if you do not want to store real credentials in the repo.
+You can override sensitive values locally using `cypress.env.json` (not committed) or CLI env variables
 
 ### 📁 Architecture: POM + Locators + Data‑Driven Fixtures
 
@@ -64,8 +60,6 @@ You can override sensitive values locally using `cypress.env.json` (not committe
     - `MulticalenderPage` / `multicalenderOverride` – multicalendar metrics and DSO overrides
     - `SearchPage` – listing search
     - `TagPage` – tag management
-  - Each page exposes **intent‑level methods** (e.g. `visitHomePage`, `selectDateSingleMonth`, `viewOverridesListing`, `addAndValidateTag`) which are used by specs.
-
 - **Dedicated Locators Layer**
   - `cypress/e2e/pageObjects/locators/*` holds all selectors:
     - `loginLocators`, `multicalenderLocators`, `multicalenderOverrideLocators`, `searchLocators`, `tagLocators`, `columnGridLocators`.
@@ -77,7 +71,7 @@ You can override sensitive values locally using `cypress.env.json` (not committe
     - `fixtures/mock/*.json` – mock calendar/override data for UI validation (e.g. DSO creation and final price checks).
   - Specs load fixtures via `cy.fixture(...)` and pass data into page objects or API helpers, keeping test logic declarative and separate from data.
 
-### ✅ Assignment Alignment (What’s Covered)
+### Hybrid TDD / Data‑Driven POM
 
 - **Hybrid TDD / Data‑Driven POM**
   - Uses **Mocha** structure:
@@ -88,11 +82,7 @@ You can override sensitive values locally using `cypress.env.json` (not committe
 
 - **Multicalendar DSO UI Scenarios**
   - Functional:
-    - Create/validate DSO overrides and verify listing‑level override state.
-    - Save and validate DSO values, including final price persistence using mocked `get_calendar_data`.
   - Drag & Drop:
-    - Calendar grid drag‑select uses `cy.dragSelectPricingCells` with realistic mouse events over data grid pricing cells.
-    - Metric drag‑and‑drop is automated via `MulticalenderPage.dragFirstMetricToThirdPosition`.
   - End‑to‑End:
     - DSO changes are applied, and the grid/summary values are validated using mock responses to ensure deterministic behavior.
   - Negative:
@@ -100,10 +90,7 @@ You can override sensitive values locally using `cypress.env.json` (not committe
 
 - **API Testing**
   - `cypress/e2e/API/*.cy.js` specs:
-    - Use `cy.request()` to call the **DSO/price/tag update endpoints** directly.
-    - Cover both **happy paths** (200 + SUCCESS payloads) and **negative cases**:
-      - Invalid/expired auth token.
-      - Invalid or incomplete payloads (e.g. missing `listing_id`).
+  - E2E DSO changes and attempts to save DSO with empty values or invalid/out‑of‑bounds final price 
 
 - **Wait‑for‑Settle / Flake Avoidance**
   - Uses `cy.intercept().as(...)` with `cy.wait('@alias')` to wait for network calls.
@@ -123,11 +110,3 @@ You can override sensitive values locally using `cypress.env.json` (not committe
     - `cypress/support/e2e.js` (`import 'cypress-mochawesome-reporter/register'`).
   - Headless runs (`npm run cypress:run:report`) generate combined HTML/JSON reports with embedded screenshots on failure.
 
-### 🔍 Notes on Duplication & Selectors
-
-- Common selectors (e.g. pricing cells, toast messages, listing rows) are centralized into:
-  - `columnGridLocators` for multicalendar table/grid selectors, used by custom commands like `cy.findListingRow`, `cy.clickPricingCell`, and `cy.dragSelectPricingCells`.
-  - Shared toast selectors in locator files to avoid repeating `[data-status="error"] p` or success toast selectors.
-- Page objects share small helpers (like `visitHomePage`) rather than duplicating navigation logic inside specs.
-
-If you want, we can further **push more literals (listing names, tag strings, DSO ranges)** into dedicated fixture files for stricter data‑driven separation, but the core assignment requirements are already met.  

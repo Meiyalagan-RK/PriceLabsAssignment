@@ -15,7 +15,7 @@ module.exports = defineConfig({
   e2e: {
     baseUrl: 'https://app.pricelabs.co',
     env: {
-      // For real projects prefer cypress.env.json or environment variables
+   // login credentials
       loginUrl: 'https://pricelabs.co/signin',
       username: 'qa.pricelabs@gmail.com',
       password: 'qg33N$yxJP'
