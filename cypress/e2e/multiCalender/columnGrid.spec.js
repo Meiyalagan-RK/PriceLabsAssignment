@@ -17,7 +17,7 @@ describe("Multicalender DSO feature", () => {
 
       // wait until cells load for this listing
       cy.findListingRow(listingName).within(() => {
-        cy.get('[qa-id*="price-tooltip--"]', { timeout: 10000 })
+        cy.get('[qa-id*="price-tooltip--"]')
           .should('have.length.greaterThan', 5)
       })
 
