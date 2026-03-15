@@ -25,13 +25,6 @@ Cypress automation for the PriceLabs Multicalendar, implemented using a hybrid T
     - Multicalendar drag‑and‑drop helpers
     - Mocking DSO/tag APIs for deterministic UI tests
 
-```bash
-CYPRESS_loginUrl="https://pricelabs.co/signin" \
-CYPRESS_username="your_email" \
-CYPRESS_password="your_password" \
-npm run cypress:run
-```
-
 ### Setup
 
 - Install dependencies:
@@ -60,24 +53,6 @@ npm run cypress:run
 npm run cypress:run:report
 ```
 
-Screenshots and videos on failure are captured by Cypress, and the **`cypress-mochawesome-reporter`** plugin aggregates results into a single HTML report.
-
-### 🌐 Environment & Configuration
-
-- **Base URL (QA environment)** is configured in `cypress.config.js`:
-  - `baseUrl`: `https://app.pricelabs.co`
-  - `env.loginUrl`: `https://pricelabs.co/signin`
-- **Credentials** for the demo account are configured via `Cypress.env` in `cypress.config.js` and used by the `loginSession` custom command.
-- Global hooks and behavior live in:
-  - `cypress/support/e2e.js` – imports commands, real‑events, mochawesome reporter, and sets up a `beforeEach` to restore the authenticated session plus global `uncaught:exception` handling.
-  - `cypress/support/commands.js` – custom commands for:
-    - Session‑based login (`cy.loginSession`)
-    - Date‑picker interactions
-    - Multicalendar drag‑and‑drop helpers
-    - Mocking DSO/tag APIs for deterministic UI tests
-
-You can override sensitive values locally using `cypress.env.json` (not committed) or CLI env variables
-
 ### 📁 Architecture: POM + Locators + Data‑Driven Fixtures
 
 - **Page Object Model (POM)**
@@ -89,7 +64,7 @@ You can override sensitive values locally using `cypress.env.json` (not committe
 - **Dedicated Locators Layer**
   - `cypress/e2e/pageObjects/locators/*` holds all selectors:
     - `loginLocators`, `multicalenderLocators`, `multicalenderOverrideLocators`, `searchLocators`, `tagLocators`, `columnGridLocators`.
-  - Specs and page classes reference these locators instead of inlining raw CSS/XPath, which keeps selectors centralized and reduces duplication.
+  - Specs and page classes reference these locators reduces duplication.
 
 - **Data‑Driven Fixtures**
   - All dynamic inputs and payloads are externalized in **fixtures** under `cypress/fixtures`:
