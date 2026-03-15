@@ -1,4 +1,35 @@
 {
+    "addingDSO":{
+        "price": "300",
+        "reason": "",
+        "basePrice": "300",
+        "priceType": "fixed",
+        "pmsName": "vrm",
+        "minStay": "",
+        "minPrice": "300",
+        "minPriceType": "fixed",
+        "maxPrice": "300",
+        "maxPriceType": "fixed",
+        "listingId": "VRMREALTY___108",
+        "currency": "USD",
+        "parentKey": 2102208,
+        "page": 1,
+        "cacheBuster": 1773583159219,
+        "syncChildren": true,
+        "isParentListing": true,
+        "hasChildren": false,
+        "startDate": "Mar 30 2026",
+        "endDate": "Mar 30 2026",
+        "leadTimeExpiry": "",
+        "checkInCheckOutEnabled": false,
+        "checkIn": "0000000",
+        "checkOut": "1111111",
+        "actualStartDate": "2026-03-30",
+        "actualEndDate": "2026-03-30",
+        "currentRowIndex": 1,
+        "snoozeDso": false,
+        "isPricingPage": false
+    },
     "validRemove": {
         "price": "50",
         "reason": "",
@@ -28,7 +59,6 @@
     },
     "getCalendarForDso": {
         "query": {
-            "date": "Fri Mar 13 2026",
             "listingId": "VRMREALTY___108",
             "pmsName": "vrm",
             "parentKey": 2102208,

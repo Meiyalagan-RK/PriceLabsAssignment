@@ -28,7 +28,7 @@ describe("Multicalender DSO feature", () => {
     it('Validating final price should not be saved less tham 10 USD', () => {
       multicalenderDSO.openAddOverrideModal("192 Seasonal Property")
       multicalenderDSO.validateDSOModal("Date Specific Overrides")
-      multicalenderDSO.selectDateSingleMonth(14, 20)
+      multicalenderDSO.selectDateSingleMonth(26, 30)
       multicalenderDSO.enterfinalprice(1)
       multicalenderDSO.clickOnAdd()
       multicalenderDSO.validateError(['Fixed custom pricing should be greater than 10'])
@@ -52,7 +52,7 @@ describe("Multicalender DSO feature", () => {
           cy.mockCalendarData(mockData)
           multicalenderDSO.openAddOverrideModal("192 Seasonal Property")
           multicalenderDSO.validateDSOModal("Date Specific Overrides")
-          multicalenderDSO.selectDateSingleMonth(14, 20)
+          multicalenderDSO.selectDateSingleMonth(27, 30)
           multicalenderDSO.enterfinalprice(100)
           multicalenderDSO.clickOnAdd()
           multicalenderDSO.viewOverridesListing("192 Seasonal Property")
